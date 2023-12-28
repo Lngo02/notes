@@ -1,6 +1,7 @@
 import { FolderStyle, Title} from "./styles";
 import { useState } from "react";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { useSpring } from "@react-spring/web";
 
 const AddFolder = () => {
   const [openAddFolder, setOpenAddFolder] = useState(false);
@@ -9,9 +10,16 @@ const AddFolder = () => {
     setOpenAddFolder(!openAddFolder);
   };
 
+  const addFolderProps = useSpring({
+    maxHeight: openAddFolder ? 1000 : 70,
+    config: openAddFolder
+      ? {duration: 300, tension: 10, friction: 10}
+      : {duration: 400, tension: 10, friction: 10},
+  });
+
   return (
     <>
-      <FolderStyle>
+      <FolderStyle style={addFolderProps}>
         <Title onClick={handleToggle}>+ Add folder</Title>
         <Formik
           initialValues={{ email: '', password: '' }}
