@@ -1,6 +1,8 @@
 import styled from 'styled-components'
+import { animated } from '@react-spring/web';
 
-export const FolderStyle = styled.div`
+// Using react spring requres it to be an animated.div element
+export const FolderStyle = styled(animated.div)`
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   background: white;
@@ -21,7 +23,7 @@ export const FolderStyle = styled.div`
     overflow-anchor: auto;
 `
 
-export const Container = styled.div`
+export const Container = styled(animated.div)`
   padding-right: 16px;
   padding-left: 16px;
 `

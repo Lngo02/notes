@@ -2,6 +2,7 @@ import Note from "../Note";
 import AddNote from "../AddNote";
 import { useState, useRef, useEffect } from "react";
 import { FolderStyle, Title, Container } from "./styles";
+import { useSpring } from '@react-spring/web';
 
 interface IProps {
   title: string;
@@ -23,13 +24,18 @@ const Folder: React.FC<IProps> = ({ title }) => {
     setOpenFolder(!openFolder);
   };
 
+  const folderProps = useSpring({
+    maxHeight: folderHeight,
+    config: {duration: 300, tension: 10, friction: 10},
+  });
+
   return (
     <>
       <FolderStyle
         ref={folderRef}
         aria-expanded={openFolder}
         aria-label={title + " folder"}
-        style={{ height: folderHeight}}
+        style={folderProps}
       >
         <Container>
           <Title onClick={handleToggle} aria-label={`Toggle ${title} folder`}>
