@@ -32,3 +32,5 @@ export default {
 ## Resources
 [Framer Motion - An Animation library for react](https://www.framer.com/motion/)
 [React Spring - A animation library for react](https://www.react-spring.dev/)
+[React hook form - form library](https://react-hook-form.com/)
+[Formik - form library for react](https://formik.org/)
