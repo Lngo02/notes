@@ -13,12 +13,15 @@ const Folder: React.FC<IProps> = ({ title }) => {
   const [openNote, setOpenNote] = useState(false);
   const [folderHeight, setFolderHeight] = useState(50);
   const [noteHeight, setNoteHeight] = useState(100);
+  const [openAddNote, setOpenAddNote] = useState(false);
+
+  const [noteIsAdded, setNoteIsAdded] = useState(false);
 
   const folderRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    setFolderHeight(openFolder ? folderRef.current!.scrollHeight : 75);
-  }, [openFolder, openNote]);
+    setFolderHeight(openFolder ? folderRef.current!.scrollHeight + 50: 75);
+  }, [openFolder, openNote, openAddNote]);
 
   const handleToggle = () => {
     setOpenFolder(!openFolder);
@@ -41,7 +44,12 @@ const Folder: React.FC<IProps> = ({ title }) => {
           <Title onClick={handleToggle} aria-label={`Toggle ${title} folder`}>
             {title}
           </Title>
-          <AddNote />
+          <AddNote 
+            openAddNote={openAddNote}
+            setOpenAddNote={setOpenAddNote}
+            folder={title}
+            setNoteIsAdded={setNoteIsAdded}
+          />
           <Note
             openNote={openNote}
             setOpenNote={setOpenNote}

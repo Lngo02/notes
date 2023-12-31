@@ -41,7 +41,7 @@ export const Form = styled.form`
   width: 90%;
 `;
 
-  export const Input = styled.input`
+export const Input = styled.input`
   font-size: 24px;
   margin-top: 8px;
   margin-bottom: 12px;

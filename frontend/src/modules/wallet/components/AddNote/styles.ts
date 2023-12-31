@@ -1,6 +1,7 @@
+import { animated } from '@react-spring/web'
 import styled from 'styled-components'
 
-export const Add = styled.div`
+export const Add = styled(animated.div)`
   display: flex;
   flex-direction: column;
   background: black;
@@ -15,12 +16,12 @@ export const Add = styled.div`
     min-width: 66vw;
 `
 
-export const Title = styled.div`
+export const Title = styled(animated.div)`
   color: white;
   padding-left: 16px;
 `
 
-export const Form = styled.div`
+export const Form = styled(animated.form)`
 `
 
 
@@ -38,6 +39,7 @@ export const TitleInput = styled.input`
   padding-left: 16px;
   margin-left: 16px;
   margin-right: 16px;
+  color: white;
 `
 
 export const BodyInput = styled.input`
@@ -50,4 +52,5 @@ export const BodyInput = styled.input`
   padding-left: 16px;
   margin-left: 16px;
   margin-right: 16px;
+  color: white;
 `
