@@ -1,9 +1,13 @@
 import { FolderStyle, Input, Title, Form, Button} from "./styles";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Formik, FormikHelpers } from 'formik';
 import { useSpring } from "@react-spring/web";
 
-const AddFolder = () => {
+interface IProps {
+  setFolderIsAdded: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const AddFolder = ({setFolderIsAdded}:IProps) => {
   const [openAddFolder, setOpenAddFolder] = useState(false);
 
   const addFolderProps = useSpring({
@@ -21,13 +25,17 @@ const AddFolder = () => {
     title: string;
   }
 
-  const handleSubmit = (values: FormValues, {setSubmitting, resetForm}: FormikHelpers<FormValues>) => {
+  const handleSubmit = (
+    values: FormValues, 
+    {setSubmitting, resetForm}: FormikHelpers<FormValues>
+  ) => {
     setTimeout(() => {
       setSubmitting(false);
       handleToggle();
       localStorage.setItem(values.title, JSON.stringify([]));
+      setFolderIsAdded(true);
       resetForm();
-    }, 400)
+    }, 400);
   }
 
   return (
@@ -45,7 +53,7 @@ const AddFolder = () => {
           }}
           onSubmit={handleSubmit}
         >
-          {({ values, handleChange, isSubmitting }) => (
+          {({ values, handleChange, handleSubmit }) => (
             <Form onSubmit={handleSubmit}>
               <Input
                 type="text"
@@ -54,9 +62,7 @@ const AddFolder = () => {
                 value={values.title}
                 placeholder="folder title"
               />
-              <button type="submit" disabled={isSubmitting}>
-                Submit
-              </button>
+              <Button type="submit"/>
             </Form>
           )}
         </Formik>
