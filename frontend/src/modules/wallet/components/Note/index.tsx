@@ -6,9 +6,12 @@ interface IProps {
   setOpenNote: React.Dispatch<React.SetStateAction<boolean>>;
   noteHeight: number;
   setNoteHeight: React.Dispatch<React.SetStateAction<number>>;
+  noteTitle: string;
+  noteBody: string;
+  folder: string;
 }
 
-const Note: React.FC<IProps> = ({ openNote, setOpenNote, setNoteHeight }) => {
+const Note: React.FC<IProps> = ({ openNote, setOpenNote, setNoteHeight, noteTitle, noteBody, folder }) => {
   const noteRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -25,19 +28,11 @@ const Note: React.FC<IProps> = ({ openNote, setOpenNote, setNoteHeight }) => {
     <>
       <Card data-testid="note" ref={noteRef} onClick={handleToggle}>
         <Header>
-          <Title>Note title</Title>
+          <Title>{folder}</Title>
         </Header>
-        <Text>Note body text</Text>
+        <Text>{noteTitle}</Text>
         <TextArea>
-          "Lorem Ipsum is simply dummy text of the printing and typesetting
-          industry. Lorem Ipsum has been the industry's standard dummy text ever
-          since the 1500s, when an unknown printer took a galley of type and
-          scrambled it to make a type specimen book. It has survived not only
-          five centuries, but also the leap into electronic typesetting,
-          remaining essentially unchanged. It was popularised in the 1960s with
-          the release of Letraset sheets containing Lorem Ipsum passages, and
-          more recently with desktop publishing software like Aldus PageMaker
-          including versions of Lorem Ipsum."
+          {noteBody}
         </TextArea>
       </Card>
     </>

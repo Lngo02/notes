@@ -3,6 +3,7 @@ import AddNote from "../AddNote";
 import { useState, useRef, useEffect } from "react";
 import { FolderStyle, Title, Container } from "./styles";
 import { useSpring } from '@react-spring/web';
+import { INote } from '../../interfaces';
 
 interface IProps {
   title: string;
@@ -15,9 +16,25 @@ const Folder: React.FC<IProps> = ({ title }) => {
   const [noteHeight, setNoteHeight] = useState(100);
   const [openAddNote, setOpenAddNote] = useState(false);
 
+  const [notes, setNotes] = useState<INote[]>([]);
   const [noteIsAdded, setNoteIsAdded] = useState(false);
 
   const folderRef = useRef<HTMLDivElement | null>(null);
+
+  useEffect(() => {
+    // the local storage items debug and verifier are breaking this because ther string isnt json
+    // ignore them
+    if (title !== 'debug' && title !== 'verifier') {
+      const storedNotes = localStorage.getItem(title); 
+      console.log(storedNotes);// Get notes related to folder 
+      if (storedNotes !== null && storedNotes !== "") {
+        const noteList = JSON.parse(storedNotes);
+        if (noteList == null || noteList.length) {
+          setNotes(noteList);
+        }
+      }
+    }
+  }, [noteIsAdded]);
 
   useEffect(() => {
     setFolderHeight(openFolder ? folderRef.current!.scrollHeight + 50: 75);
@@ -50,12 +67,18 @@ const Folder: React.FC<IProps> = ({ title }) => {
             folder={title}
             setNoteIsAdded={setNoteIsAdded}
           />
-          <Note
-            openNote={openNote}
-            setOpenNote={setOpenNote}
-            noteHeight={noteHeight}
-            setNoteHeight={setNoteHeight}
-          />
+          {notes && Object.values(notes).map((note: any, key: number) => (
+            <Note
+              openNote={openNote}
+              setOpenNote={setOpenNote}
+              noteHeight={noteHeight}
+              setNoteHeight={setNoteHeight}
+              noteTitle={note[0]}
+              noteBody={note[1]}
+              folder={title}
+            />
+          ))}
+          
         </Container>
       </FolderStyle>
     </>
